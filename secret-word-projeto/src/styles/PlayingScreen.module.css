@@ -1,0 +1,42 @@
+.playing h1 {
+  font-size: 2.5em;
+}
+.playing span {
+  font-weight: bold;
+}
+.tip span {
+  color: yellow;
+}
+
+.wordContainer {
+  margin: 1.5em;
+  padding: 1.5em;
+  border: 20px solid yellow;
+  display: flex;
+  justify-content: center;
+}
+
+.letter,
+.blankSquare {
+  font-size: 70px;
+  line-height: 1.5;
+  border: 3px solid #000;
+  height: 100px;
+  width: 100px;
+  color: #000;
+  background-color: #fff;
+  font-weight: bold;
+}
+
+.letterContainer form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.letterContainer input {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  text-align: center;
+  margin-right: 1em;
+}
