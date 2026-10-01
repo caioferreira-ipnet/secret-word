@@ -4,10 +4,12 @@ import { useState } from "react";
 import "./App.css";
 //Components
 import StartScreen from "./components/StartScreen";
+import PlayingScreen from "./components/PlayingScreen";
+import GameOverScreen from "./components/GameOverScreen";
 //Data
 import { wordsList } from "./data/words";
 
-//Variables
+//Stages of the game
 const stages = [
   { id: 1, name: "start" },
   { id: 2, name: "playing" },
@@ -15,13 +17,56 @@ const stages = [
 ];
 
 function App() {
+  //Variables
   const [gameStage, setGameStage] = useState(stages[0].name);
+  const [words] = useState(wordsList);
+  const [pickedWord, setPickedWord] = useState("");
+  const [pickedCategory, setPickedCategory] = useState("");
+  //Function to pick a random word and category
+  const pickWordAndCategory = () => {
+    //Pick a random category
+    const categories = Object.keys(words);
+    const category =
+      categories[Math.floor(Math.random() * Object.keys(categories).length)];
+    console.log(category);
+
+    //Pick a random word
+    const word =
+      words[category][Math.floor(Math.random() * words[category].length)];
+
+    return { word, category };
+  };
+
+  //Function Start Game
+  const startGame = () => {
+    const { word, category } = pickWordAndCategory();
+
+    //create an array of letters
+
+    setPickedWord(word);
+    setPickedCategory(category);
+    console.log(word, category);
+    setGameStage(stages[1].name);
+  };
+
+  //Process the letter input
+  const processLetter = () => {
+    setGameStage(stages[2].name);
+  };
+
+  //Restart the game
+  const restartGame = () => {
+    setGameStage(stages[0].name);
+  };
+
   return (
     <>
       <div className="App">
-        {gameStage === "start" && <StartScreen />}
-        {gameStage === "playing" && <PlayingScreen />}
-        {gameStage === "gameOver" && <GameOverScreen />}
+        {gameStage === "start" && <StartScreen startGame={startGame} />}
+        {gameStage === "playing" && (
+          <PlayingScreen processLetter={processLetter} />
+        )}
+        {gameStage === "gameOver" && <GameOverScreen retry={restartGame} />}
       </div>
     </>
   );
